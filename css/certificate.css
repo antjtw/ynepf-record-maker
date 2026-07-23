@@ -1,0 +1,262 @@
+/* ─────────────────────────────────────────────────────
+   YNEPF Certificate Maker — Certificate Styles
+───────────────────────────────────────────────────── */
+
+/* ── Shell ────────────────────────────────────────── */
+#certificate {
+  width: var(--cert-w);
+  height: var(--cert-h);
+  background: #fff;
+  position: relative;
+  font-family: var(--font-body);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 48px 80px 40px;
+}
+
+/* ── Borders ──────────────────────────────────────── */
+.cert-outer-border {
+  position: absolute;
+  inset: 22px;
+  border: 1.5px solid var(--ink);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cert-inner-border {
+  position: absolute;
+  inset: 28px;
+  border: 0.5px solid var(--accent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Corner ornaments ─────────────────────────────── */
+.cert-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cert-corner.tl { top: 14px;    left: 14px; }
+.cert-corner.tr { top: 14px;    right: 14px;  transform: rotate(90deg); }
+.cert-corner.bl { bottom: 14px; left: 14px;   transform: rotate(-90deg); }
+.cert-corner.br { bottom: 14px; right: 14px;  transform: rotate(180deg); }
+
+/* ── Main body wrapper (vertically centred) ───────── */
+.cert-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ── Organisation header ──────────────────────────── */
+.cert-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+  gap: 4px;
+}
+
+.cert-org {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 1px;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.cert-org-sub {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* ── Horizontal dividers ──────────────────────────── */
+.cert-divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.cert-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.25;
+}
+
+.cert-divider-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.cert-mid-divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 14px 0;
+}
+
+.cert-mid-divider-line {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+}
+
+/* ── Record title ─────────────────────────────────── */
+.cert-record-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--ink);
+  margin: 4px 0 12px;
+}
+
+/* ── Lifter name ──────────────────────────────────── */
+.cert-name {
+  font-family: var(--font-display);
+  font-size: 62px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  text-align: center;
+  margin: 6px 0;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.cert-name.long       { font-size: 50px; }
+.cert-name.very-long  { font-size: 40px; }
+.cert-name.ultra-long { font-size: 32px; }
+
+/* ── Single-record lift display ───────────────────── */
+.cert-lift {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  text-align: center;
+  margin: 4px 0;
+}
+
+/* ── Multi-record grid ────────────────────────────── */
+.cert-records-grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 0;
+  margin: 4px 0;
+}
+
+.cert-record-card {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+  padding: 10px 28px;
+}
+
+.cert-record-card + .cert-record-card {
+  border-left: 1px solid rgba(197 84 50 / 0.18);
+}
+
+.cert-record-weight {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: italic;
+  color: var(--accent);
+  line-height: 1.0;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.cert-record-disc {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--accent);
+  opacity: 0.8;
+  line-height: 1.2;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+/* ── Class & date lines ───────────────────────────── */
+.cert-class {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.3px;
+  margin: 5px 0 0;
+  text-align: center;
+}
+
+.cert-date {
+  font-size: 12.5px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink);
+  opacity: 0.75;
+  margin-top: 16px;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+/* ── Footer ───────────────────────────────────────── */
+.cert-footer {
+  width: 100%;
+  border-top: 1px solid rgba(32 63 91 / 0.2);
+  padding-top: 16px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cert-footer-logo        { height: 54px; width: auto; flex-shrink: 0; object-fit: contain; }
+.cert-footer-logo.badge  { height: 58px; }
+
+.cert-registrar      { text-align: center; font-family: var(--font-body); }
+.cert-registrar-name {
+  font-size: 13px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.cert-registrar-title {
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--ink);
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

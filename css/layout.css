@@ -1,0 +1,97 @@
+/* ─────────────────────────────────────────────────────
+   YNEPF Certificate Maker — App Layout
+───────────────────────────────────────────────────── */
+
+/* ── Reset ────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: var(--font-body);
+  background: var(--page-bg);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── App shell ────────────────────────────────────── */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Form / config sidebar ───────────────────────── */
+.form-panel {
+  width: 360px;
+  min-width: 320px;
+  background: var(--panel-bg);
+  color: #fff;
+  padding: 28px 24px 40px;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+/* ── Preview pane ─────────────────────────────────── */
+.preview-panel {
+  flex: 1;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  background: var(--page-bg);
+  min-width: 0;
+}
+
+.preview-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #667;
+  margin-bottom: 20px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.cert-shadow-wrap {
+  box-shadow:
+    0 4px 6px  -1px  rgba(0 0 0 / 0.08),
+    0 12px 40px -8px  rgba(0 0 0 / 0.18),
+    0 32px 80px -16px rgba(0 0 0 / 0.12);
+}
+
+/* ── Export overlay ───────────────────────────────── */
+.export-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(21 44 65 / 0.85);
+  z-index: 100;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 15px;
+  gap: var(--sp-md);
+}
+
+.export-overlay.active { display: flex; }
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255 255 255 / 0.2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Mobile download button (visible below preview) ─ */
+.mobile-download-btn { display: none; }

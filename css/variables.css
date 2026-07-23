@@ -1,0 +1,51 @@
+/* ─────────────────────────────────────────────────────
+   YNEPF Certificate Maker — Design Tokens
+   All custom properties live here; nothing else does.
+───────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Cutmark';
+  src: url('../assets/CutmarkVariableGX.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ── Iron Oxide palette ── */
+  --iron-500: #C55432;   /* warm rust — primary accent  */
+  --iron-600: #AA482C;   /* darker rust — hover states  */
+
+  /* ── Slate Navy palette ── */
+  --slate-500: #45698B;
+  --slate-600: #32526F;
+  --slate-700: #203F5B;  /* main ink colour             */
+  --slate-800: #152C41;  /* panel background            */
+
+  /* ── Golden Sandstone ── */
+  --gold-500: #B89344;
+
+  /* ── Semantic roles ─────────────────────────────── */
+  --accent:       var(--iron-500);
+  --accent-dark:  var(--iron-600);
+  --ink:          var(--slate-700);
+  --ink-muted:    var(--slate-500);
+  --panel-bg:     var(--slate-800);
+  --panel-border: rgba(255 255 255 / 0.1);
+  --page-bg:      #e8ecf0;
+
+  /* ── Typography ─────────────────────────────────── */
+  --font-display: 'Cutmark', system-ui, sans-serif;
+  --font-body:    'IBM Plex Sans', system-ui, sans-serif;
+
+  /* ── Spacing scale ──────────────────────────────── */
+  --sp-xs: 4px;
+  --sp-sm: 8px;
+  --sp-md: 16px;
+  --sp-lg: 24px;
+  --sp-xl: 32px;
+
+  /* ── Certificate dimensions (A4 landscape @ 96 dpi) */
+  --cert-w: 1123px;
+  --cert-h: 794px;
+}

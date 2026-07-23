@@ -1,0 +1,109 @@
+/* ─────────────────────────────────────────────────────
+   YNEPF Certificate Maker — Responsive / Mobile
+   Overrides kick in at ≤ 768 px.
+───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+
+  /* ── App shell ──────────────────────────────────── */
+  .app { flex-direction: column; }
+
+  /* ── Form panel: becomes a collapsible drawer ───── */
+  .form-panel {
+    width: 100%;
+    min-width: unset;
+    position: static;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+    order: 2;
+  }
+
+  /* Toggle bar — always visible */
+  .form-toggle-bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: var(--panel-bg);
+    color: #fff;
+    border: none;
+    border-top: 1px solid rgba(255 255 255 / 0.08);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    text-align: left;
+    gap: 12px;
+  }
+
+  .form-toggle-bar:active { opacity: 0.85; }
+
+  .toggle-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .toggle-chevron {
+    transition: transform 0.25s ease;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .form-toggle-bar[aria-expanded="true"] .toggle-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Collapsible body */
+  .form-panel-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    background: var(--panel-bg);
+  }
+
+  .form-panel-body.open { max-height: 4000px; }
+
+  .form-panel-body-inner { padding: 20px 20px 32px; }
+
+  /* Hide desktop-only decorative elements */
+  .form-logo,
+  .form-title,
+  .form-subtitle { display: none; }
+
+  /* ── Preview panel ──────────────────────────────── */
+  .preview-panel {
+    order: 1;
+    padding: 12px 12px 0;
+    min-height: unset;
+    overflow: visible;
+  }
+
+  .preview-label { margin-bottom: 10px; }
+
+  /* Certificate scales to fit (dimensions set by scaleCertificate() in JS) */
+  .cert-shadow-wrap { overflow: hidden; }
+  #certificate { transform-origin: top left; }
+
+  /* ── Mobile download button ─────────────────────── */
+  .mobile-download-btn {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 12px;
+    letter-spacing: 0.2px;
+    border-radius: 0;
+  }
+
+  .mobile-download-btn:active { opacity: 0.88; }
+}
