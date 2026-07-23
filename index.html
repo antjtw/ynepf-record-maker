@@ -24,14 +24,14 @@
   }
 
   :root {
-    --navy: #002E5B;
+    --navy: #203F5B;
     --navy-mid: #203F5B;
-    --red: #DD0915;
+    --red: #C55432;
     --gold: #B89344;
     --light-bg: #F6F8FA;
     --form-bg: #152C41;
     --form-border: #203F5B;
-    --text-primary: #002E5B;
+    --text-primary: #203F5B;
     --text-muted: #45698B;
   }
 
@@ -178,7 +178,7 @@
     gap: 8px;
   }
 
-  .btn-export:hover { background: #BB0712; }
+  .btn-export:hover { background: #AA482C; }
   .btn-export:active { transform: scale(0.98); }
   .btn-export:disabled { background: rgba(255,255,255,0.2); cursor: not-allowed; }
 
@@ -420,7 +420,7 @@
   /* Footer logos */
   .cert-footer {
     width: 100%;
-    border-top: 1px solid rgba(0,46,91,0.2);
+    border-top: 1px solid rgba(32,63,91,0.2);
     padding-top: 16px;
     display: flex;
     align-items: center;
@@ -459,6 +459,116 @@
     opacity: 0.65;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+  }
+
+
+  /* ── Multi-record grid (certificate) ── */
+  .cert-records-grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0;
+    margin: 4px 0;
+  }
+
+  .cert-record-card {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    padding: 10px 28px;
+  }
+
+  .cert-record-card + .cert-record-card {
+    border-left: 1px solid rgba(197,84,50,0.18);
+  }
+
+  .cert-record-weight {
+    font-family: 'Cutmark', 'IBM Plex Sans', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    color: var(--red);
+    line-height: 1.0;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+  }
+
+  .cert-record-disc {
+    font-family: 'Cutmark', 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--red);
+    opacity: 0.8;
+    line-height: 1.2;
+    margin-top: 3px;
+    white-space: nowrap;
+  }
+
+  /* ── Record entries in the form sidebar ── */
+  .record-entry {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .record-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 6px;
+  }
+
+  .record-entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .record-entry-num {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+
+  .btn-remove-record {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.45);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+
+  .btn-remove-record:hover { border-color: var(--red); color: var(--red); }
+
+  .btn-add-record {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.55);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    padding: 9px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 2px;
+  }
+
+  .btn-add-record:hover {
+    border-color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.07);
   }
 
   /* Spinner overlay for export */
@@ -525,23 +635,9 @@
     <hr class="divider">
 
     <div class="form-section">
-      <div class="form-section-label">Lift Details</div>
-      <label for="liftWeight">Weight lifted (kg)</label>
-      <input type="number" id="liftWeight" placeholder="e.g. 152.5" step="0.5" min="0" oninput="updateCert()">
-
-      <label for="discipline">Discipline</label>
-      <select id="discipline" onchange="updateCert()">
-        <option value="squat">Squat</option>
-        <option value="bench press">Bench Press</option>
-        <option value="deadlift">Deadlift</option>
-        <option value="total">Total</option>
-      </select>
-
-      <label for="equipment">Equipment</label>
-      <select id="equipment" onchange="updateCert()">
-        <option value="classic">Classic</option>
-        <option value="equipped">Equipped</option>
-      </select>
+      <div class="form-section-label">Records</div>
+      <div id="recordsList"></div>
+      <button type="button" class="btn-add-record" onclick="addRecord()">+ Add record</button>
     </div>
 
     <hr class="divider">
@@ -569,6 +665,12 @@
         <option value="m2">Masters 2 (50–59)</option>
         <option value="m3">Masters 3 (60–69)</option>
         <option value="m4">Masters 4 (70+)</option>
+      </select>
+
+      <label for="equipment">Equipment</label>
+      <select id="equipment" onchange="updateCert()">
+        <option value="classic">Classic</option>
+        <option value="equipped">Equipped</option>
       </select>
     </div>
 
@@ -612,20 +714,20 @@
 
         <!-- Corner ornaments -->
         <svg class="cert-corner tl" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 26 L2 2 L26 2" stroke="#002E5B" stroke-width="1.5" fill="none"/>
-          <circle cx="2" cy="2" r="2.5" fill="#DD0915"/>
+          <path d="M2 26 L2 2 L26 2" stroke="#203F5B" stroke-width="1.5" fill="none"/>
+          <circle cx="2" cy="2" r="2.5" fill="#C55432"/>
         </svg>
         <svg class="cert-corner tr" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 26 L2 2 L26 2" stroke="#002E5B" stroke-width="1.5" fill="none"/>
-          <circle cx="2" cy="2" r="2.5" fill="#DD0915"/>
+          <path d="M2 26 L2 2 L26 2" stroke="#203F5B" stroke-width="1.5" fill="none"/>
+          <circle cx="2" cy="2" r="2.5" fill="#C55432"/>
         </svg>
         <svg class="cert-corner bl" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 26 L2 2 L26 2" stroke="#002E5B" stroke-width="1.5" fill="none"/>
-          <circle cx="2" cy="2" r="2.5" fill="#DD0915"/>
+          <path d="M2 26 L2 2 L26 2" stroke="#203F5B" stroke-width="1.5" fill="none"/>
+          <circle cx="2" cy="2" r="2.5" fill="#C55432"/>
         </svg>
         <svg class="cert-corner br" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 26 L2 2 L26 2" stroke="#002E5B" stroke-width="1.5" fill="none"/>
-          <circle cx="2" cy="2" r="2.5" fill="#DD0915"/>
+          <path d="M2 26 L2 2 L26 2" stroke="#203F5B" stroke-width="1.5" fill="none"/>
+          <circle cx="2" cy="2" r="2.5" fill="#C55432"/>
         </svg>
 
         <!-- Border rings -->
@@ -656,10 +758,15 @@
             <div class="cert-mid-divider-line"></div>
           </div>
 
-          <!-- Lift display -->
-          <div class="cert-lift" id="certLift">152.5kg squat</div>
+          <!-- Single record (1 record mode) -->
+          <div id="certSingleRecord">
+            <div class="cert-lift" id="certLift">152.5kg squat</div>
+          </div>
 
-          <!-- Class -->
+          <!-- Multi-record grid (2+ records mode) -->
+          <div class="cert-records-grid" id="certRecordsGrid" style="display:none"></div>
+
+          <!-- Class line — shown for both modes -->
           <div class="cert-class" id="certClass">in the classic M1 –76kg class</div>
 
           <!-- Date -->
@@ -712,6 +819,79 @@
     m4: "M4"
   };
 
+  // ── Disciplines ──
+  const disciplines = [
+    { value: "squat",       label: "Squat" },
+    { value: "bench press", label: "Bench Press" },
+    { value: "bench A/C",   label: "Bench A/C" },
+    { value: "deadlift",    label: "Deadlift" },
+    { value: "total",       label: "Total" }
+  ];
+
+  // ── Records state ──
+  let records = [{ id: 0, weight: "", discipline: "squat" }];
+  let recIdCounter = 1;
+
+  // ── Read current field values back into the records array ──
+  function readRecords() {
+    records.forEach(rec => {
+      const wEl = document.getElementById(`rec-weight-${rec.id}`);
+      const dEl = document.getElementById(`rec-disc-${rec.id}`);
+      if (wEl) rec.weight = wEl.value;
+      if (dEl) rec.discipline = dEl.value;
+    });
+  }
+
+  // ── Rebuild the records list in the form sidebar ──
+  function renderRecordsList() {
+    const list = document.getElementById("recordsList");
+    list.innerHTML = "";
+    records.forEach((rec, idx) => {
+      const div = document.createElement("div");
+      div.className = "record-entry";
+      div.id = `rec-${rec.id}`;
+      const discOpts = disciplines.map(d =>
+        `<option value="${d.value}"${rec.discipline === d.value ? " selected" : ""}>${d.label}</option>`
+      ).join("");
+      div.innerHTML = `
+        <div class="record-entry-header">
+          <span class="record-entry-num">Record ${idx + 1}</span>
+          ${records.length > 1
+            ? `<button class="btn-remove-record" onclick="removeRecord(${rec.id})">×</button>`
+            : ""}
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Weight (kg)</label>
+            <input type="number" id="rec-weight-${rec.id}" value="${rec.weight}"
+                   placeholder="e.g. 152.5" step="0.5" min="0"
+                   oninput="readRecords(); updateCert()">
+          </div>
+          <div>
+            <label>Lift</label>
+            <select id="rec-disc-${rec.id}" onchange="readRecords(); updateCert()">
+              ${discOpts}
+            </select>
+          </div>
+        </div>`;
+      list.appendChild(div);
+    });
+  }
+
+  function addRecord() {
+    if (records.length >= 4) return; // max 4 per certificate
+    records.push({ id: recIdCounter++, weight: "", discipline: "squat" });
+    renderRecordsList();
+    updateCert();
+  }
+
+  function removeRecord(id) {
+    if (records.length <= 1) return;
+    records = records.filter(r => r.id !== id);
+    renderRecordsList();
+    updateCert();
+  }
+
   // ── Populate weight classes ──
   function updateWeightClasses() {
     const gender = document.getElementById("gender").value;
@@ -743,11 +923,18 @@
     return `${day}${suffix(day)} ${months[d.getMonth()]} ${d.getFullYear()}`;
   }
 
+  // ── Helper: format weight number ──
+  function fmtW(w) {
+    const n = parseFloat(w);
+    if (isNaN(n) || n === 0) return "0";
+    return n % 1 === 0 ? String(parseInt(n)) : n.toFixed(1);
+  }
+
   // ── Main update function ──
   function updateCert() {
+    readRecords();
+
     const name      = document.getElementById("lifterName").value || "Lifter Name";
-    const weight    = document.getElementById("liftWeight").value || "0";
-    const discipline = document.getElementById("discipline").value;
     const equipment = document.getElementById("equipment").value;
     const gender    = document.getElementById("gender").value;
     const weightClass = document.getElementById("weightClass").value || "–76kg";
@@ -756,7 +943,7 @@
     const compName  = document.getElementById("compName").value;
     const registrar = document.getElementById("registrarName").value || "Records Registrar";
 
-    // Name sizing — scale down aggressively to prevent clipping
+    // Name sizing
     const nameEl = document.getElementById("certName");
     nameEl.textContent = name;
     nameEl.className = "cert-name";
@@ -764,19 +951,35 @@
     if (name.length > 20) nameEl.classList.add("very-long");
     if (name.length > 26) nameEl.classList.add("ultra-long");
 
-    // Lift
-    const liftEl = document.getElementById("certLift");
-    const weightDisplay = parseFloat(weight) % 1 === 0 ? parseInt(weight) : parseFloat(weight).toFixed(1);
-    liftEl.textContent = `${weightDisplay}kg ${discipline}`;
+    // Single vs. multi record display
+    const singleDiv = document.getElementById("certSingleRecord");
+    const gridDiv   = document.getElementById("certRecordsGrid");
 
-    // Class
-    const classEl = document.getElementById("certClass");
-    const ageDisp = ageClassDisplay[ageClass];
+    if (records.length === 1) {
+      singleDiv.style.display = "";
+      gridDiv.style.display   = "none";
+      const r = records[0];
+      document.getElementById("certLift").textContent = `${fmtW(r.weight)}kg ${r.discipline}`;
+    } else {
+      singleDiv.style.display = "none";
+      gridDiv.style.display   = "";
+      const n = records.length;
+      const wSize = n === 2 ? 40 : n === 3 ? 31 : 26;
+      const dSize = n === 2 ? 22 : n === 3 ? 17 : 14;
+      gridDiv.innerHTML = records.map(rec => `
+        <div class="cert-record-card">
+          <div class="cert-record-weight" style="font-size:${wSize}px">${fmtW(rec.weight)}kg</div>
+          <div class="cert-record-disc"   style="font-size:${dSize}px">${rec.discipline}</div>
+        </div>`).join("");
+    }
+
+    // Class line (shared across all records)
+    const ageDisp   = ageClassDisplay[ageClass];
     const genderDisp = gender === "women's" ? "Women's" : "Men's";
-    const classStr = ageDisp
+    const classStr  = ageDisp
       ? `in the ${equipment} ${ageDisp} ${weightClass} class`
       : `in the ${equipment} ${genderDisp} ${weightClass} class`;
-    classEl.textContent = classStr;
+    document.getElementById("certClass").textContent = classStr;
 
     // Date
     const dateEl = document.getElementById("certDate");
@@ -795,6 +998,27 @@
     document.getElementById("certRegistrarName").textContent = registrar;
   }
 
+  // ── SVG → PNG pre-conversion (html2canvas cannot render SVG img tags) ──
+  function svgImgToPng(img) {
+    return new Promise(resolve => {
+      const src = img.src;
+      const w = (img.offsetWidth  || 80) * 3;
+      const h = (img.offsetHeight || 80) * 3;
+      const tmp = new Image();
+      tmp.onload = () => {
+        try {
+          const cv = document.createElement('canvas');
+          cv.width = w; cv.height = h;
+          cv.getContext('2d').drawImage(tmp, 0, 0, w, h);
+          img.src = cv.toDataURL('image/png');
+        } catch(e) { /* keep original on failure */ }
+        resolve(src);
+      };
+      tmp.onerror = () => resolve(src);
+      tmp.src = src;
+    });
+  }
+
   // ── PDF Export ──
   async function exportPDF() {
     const overlay = document.getElementById("exportOverlay");
@@ -805,23 +1029,23 @@
     try {
       const cert = document.getElementById("certificate");
 
-      // Capture at 3x for print quality
+      // 1. Convert SVG <img> tags to PNG — html2canvas can't render SVGs natively
+      const svgImgs = Array.from(cert.querySelectorAll('img[src^="data:image/svg"]'));
+      const origSrcs = await Promise.all(svgImgs.map(svgImgToPng));
+
+      // 2. Capture at 3x for print quality
       const canvas = await html2canvas(cert, {
         scale: 3,
         useCORS: true,
         allowTaint: false,
         backgroundColor: "#ffffff",
-        logging: false,
-        imageTimeout: 5000,
-        onclone: (doc) => {
-          // Ensure fonts are loaded in the cloned doc
-          const clonedCert = doc.getElementById("certificate");
-          if (clonedCert) {
-            clonedCert.style.fontFamily = "'Cutmark', 'IBM Plex Sans', sans-serif";
-          }
-        }
+        logging: false
       });
 
+      // 3. Restore original SVG sources so the preview stays crisp
+      svgImgs.forEach((img, i) => { img.src = origSrcs[i]; });
+
+      // 4. Build and download the PDF
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF({
         orientation: "landscape",
@@ -830,13 +1054,8 @@
         compress: true
       });
 
-      const A4_W = 297;
-      const A4_H = 210;
+      pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, 297, 210);
 
-      const imgData = canvas.toDataURL("image/jpeg", 0.95);
-      pdf.addImage(imgData, "JPEG", 0, 0, A4_W, A4_H);
-
-      // File name from lifter
       const name = (document.getElementById("lifterName").value || "certificate")
         .replace(/[^a-z0-9]/gi, "_").toLowerCase();
       pdf.save(`ynepf_record_${name}.pdf`);
@@ -852,9 +1071,9 @@
 
   // ── Init ──
   updateWeightClasses();
-  // Set today's date as default
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("compDate").value = today;
+  renderRecordsList();
   updateCert();
 </script>
 
