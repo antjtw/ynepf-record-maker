@@ -5,7 +5,8 @@
  * to the certificate preview. Also owns responsive scaling.
  */
 
-import { WEIGHT_CLASSES, AGE_CLASS_DISPLAY } from './data.js';
+import { WEIGHT_CLASSES, AGE_CLASS_DISPLAY,
+         SUB_JUNIOR_ONLY_CLASSES, DEFAULT_WEIGHT_CLASS } from './data.js';
 import { getRecords }                        from './records.js';
 
 // ── Utility helpers ────────────────────────────────────────────────
@@ -47,7 +48,23 @@ export function updateWeightClasses() {
 
   // Restore previously selected class if it still exists
   if ([...sel.options].some(o => o.value === prev)) sel.value = prev;
-  else sel.selectedIndex = 5; // sensible default (~76 kg / ~83 kg)
+  else sel.value = DEFAULT_WEIGHT_CLASS[gender];
+
+  syncAgeClasses();
+}
+
+/**
+ * Sub-Junior-only weight classes (e.g. men's –53kg) lock the age class
+ * to Sub-Junior; other classes leave every checkbox available.
+ */
+export function syncAgeClasses() {
+  const weightClass = document.getElementById('weightClass')?.value ?? '';
+  const sjOnly      = SUB_JUNIOR_ONLY_CLASSES.includes(weightClass);
+
+  document.querySelectorAll('input[name="ageClass"]').forEach(cb => {
+    if (sjOnly) cb.checked = cb.value === 'sj';
+    cb.disabled = sjOnly;
+  });
 }
 
 // ── Main render ────────────────────────────────────────────────────

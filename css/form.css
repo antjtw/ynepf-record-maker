@@ -215,6 +215,13 @@ select option { background: var(--panel-bg); color: #fff; }
 
 .checkbox-label:hover { color: rgba(255 255 255 / 0.9); }
 
+.checkbox-label:has(input:disabled) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.checkbox-label input[type="checkbox"]:disabled { cursor: not-allowed; }
+
 .checkbox-label input[type="checkbox"] {
   /* Override the shared input rule — checkboxes have their own sizing */
   width: 15px;

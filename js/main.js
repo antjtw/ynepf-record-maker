@@ -8,7 +8,8 @@
  * any static host) because ES modules don't load over file://.
  */
 
-import { updateWeightClasses, updateCert, scaleCertificate, toggleConfig } from './certificate.js';
+import { updateWeightClasses, syncAgeClasses, updateCert,
+         scaleCertificate, toggleConfig }                                  from './certificate.js';
 import { renderRecordsList, addRecord, removeRecord, readRecords }          from './records.js';
 import { exportPDF }                                                         from './export.js';
 
@@ -43,9 +44,13 @@ function bindEvents() {
     updateCert();
   });
 
-  ['weightClass', 'equipment'].forEach(id =>
-    document.getElementById(id)?.addEventListener('change', updateCert)
-  );
+  document.getElementById('weightClass')?.addEventListener('change', () => {
+    syncAgeClasses();
+    updateCert();
+  });
+
+  document.getElementById('equipment')
+    ?.addEventListener('change', updateCert);
 
   // Age class is now a checkbox group — use event delegation on the fieldset
   document.getElementById('ageClassGroup')
