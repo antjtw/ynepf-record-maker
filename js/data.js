@@ -4,12 +4,12 @@
  */
 
 export const WEIGHT_CLASSES = {
-  "women's": ["–47kg", "–52kg", "–57kg", "–63kg", "–69kg", "–76kg", "–84kg", "84kg+"],
+  "women's": ["–43kg", "–47kg", "–52kg", "–57kg", "–63kg", "–69kg", "–76kg", "–84kg", "84kg+"],
   "men's":   ["–53kg", "–59kg", "–66kg", "–74kg", "–83kg", "–93kg", "–105kg", "–120kg", "120kg+"],
 };
 
 /** Weight classes only open to Sub-Juniors; selecting one locks the age class. */
-export const SUB_JUNIOR_ONLY_CLASSES = ["–53kg"];
+export const SUB_JUNIOR_ONLY_CLASSES = ["–43kg", "–53kg"];
 
 /** Default weight class shown when the gender changes. */
 export const DEFAULT_WEIGHT_CLASS = {

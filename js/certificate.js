@@ -54,7 +54,7 @@ export function updateWeightClasses() {
 }
 
 /**
- * Sub-Junior-only weight classes (e.g. men's –53kg) lock the age class
+ * Sub-Junior-only weight classes (women's –43kg, men's –53kg) lock the age class
  * to Sub-Junior; other classes leave every checkbox available.
  */
 export function syncAgeClasses() {
